@@ -1,5 +1,6 @@
 // src/components/BioSection.jsx
 import React from 'react';
+import { Link } from 'react-router-dom';
 import '../css/BioSection.css'; // 引入样式文件
 
 
@@ -17,10 +18,10 @@ function BioSection() {
          I take pride in writing clean, testable code that connects robust backend logic with intuitive user interfaces. My goal is to build maintainable, high-performance solutions that solve real-world business problems effectively.
       </p>
       <p className="bio">
-        Check out my projects <a href="/project1.html" className="static-link">here</a> and <a href="#" className="static-link">here</a>.
+        Check out my projects <Link to="/project1" className="static-link">here</Link> and <Link to="#" className="static-link">here</Link>.
       </p>
       <p className="bio">
-        I love hiking! Here's a record of the parks I've <a href="/parks" className="static-link">visited</a> and the states I've <a href="/usmap" className="static-link">visited</a>.
+        I love hiking! Here's a record of the parks I've <Link to="/parks" className="static-link">visited</Link> and the states I've <Link to="/usmap" className="static-link">visited</Link>.
       </p>
     </div>
   );

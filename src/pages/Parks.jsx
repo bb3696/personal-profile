@@ -100,7 +100,7 @@ function Parks() {
             const shouldShow = matchesSearch && (visited || !showVisitedOnly);
 
             const filename = normalizeParkName(name);
-            const imagePath = `/thumbnails/${filename}`;
+            const imagePath = `${import.meta.env.BASE_URL}thumbnails/${filename}`;
 
             return (
               <ParkCard

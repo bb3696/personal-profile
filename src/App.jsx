@@ -11,14 +11,14 @@ import Footer from './components/Footer';
 function App() {
 
   return (
-    <Router>
+    <>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/parks" element={<Parks />} />
         <Route path="/usmap" element={<USMap />} />
       </Routes>
       <Footer /> {/* ✅ 全局底部 */}
-    </Router>
+    </>
   );
 }
 
