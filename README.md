@@ -12,7 +12,7 @@ A clean and responsive React + Vite portfolio site with an interactive showcase 
 
 - 🎨 Responsive personal homepage (React + CSS)
 - 🗺️ Interactive National Park explorer (`/parks`)
-- 📍 U.S. state visitation map (`/usmap`)
+- 📍  U.S. state visitation map (`/usmap`)
 - 🔍 Search & filter parks with smooth animation
 - ✅ Visited parks tracking (localStorage)
 - 🌐 Deployed on GitHub Pages
