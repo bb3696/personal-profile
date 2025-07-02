@@ -1,0 +1,60 @@
+.photo-section {
+  user-select: none;     /* 禁止选中头像区域任何内容 */
+  cursor: default;
+  flex-shrink: 0;
+  text-align: center;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeInUp 0.8s ease-out forwards;
+  animation-delay: 0.1s;
+}
+
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+.avatar-img {
+  width: 330px;
+  height: 330px;
+  object-fit: cover;
+  border-radius: 12px;
+  border: 3px solid #fff;
+  margin-bottom: 10px;
+  border: none;
+  transition: transform 0.4s ease;
+}
+
+.photo-name {
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.photo-links {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 15px;
+}
+
+.photo-links a {
+  display: inline-flex;
+  align-items: center;
+  gap: 60px;
+  text-decoration: none;
+  color: #fbc02d;
+  font-weight: 600;
+  font-size: 1.5rem;
+  transition: color 0.3s ease;
+}
+
+.photo-links a:hover {
+  color: #ffeb3b;
+  text-decoration: none;
+  color: inherit;
+
+}

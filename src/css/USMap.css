@@ -1,0 +1,83 @@
+.usmap-container {
+  padding: 40px 20px;
+  max-width: 1500px;
+  margin: auto;
+  font-family: 'Outfit', sans-serif;
+   }
+
+.usmap-title {
+  font-size: 28px;
+  font-weight: 600;
+  text-align: center;
+  margin-bottom: 16px;
+}
+
+.visited-count {
+    font-size: 0.8em;
+    font-weight: thinner;
+    margin-left: 10px;
+    color: #ccc;
+}
+
+
+.usmap-map-wrapper {
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeInUp 0.8s ease-out forwards;
+  animation-delay: 0.1s;
+}
+
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.usmap-state-label {
+  pointer-events: none;
+  fill: #111;
+  font-size: 10px;
+  font-weight: bold;
+  user-select: none;
+}
+
+.statename {
+    font-family: 'Outfit', sans-serif;
+    pointer-events: none;
+    fill: #111;
+    font-size: 8px;
+    font-weight: bold;
+    user-select: none;
+}
+
+.state-default {
+  fill: #ffeeda !important;
+  transition: all 0.2s ease;
+  filter: drop-shadow(0 0 1px rgba(0, 0, 0, 0.3));
+}
+
+.state-default:hover {
+  transform-origin: center;
+  transform: scale(1.02);
+  filter: drop-shadow(0 0 4px rgba(0, 0, 0, 0.3));
+}
+
+.state-selected {
+  fill: #ff6347 !important; /* 高亮红色 */
+  filter: none;
+  opacity: 1;
+}
+
+.state-clicked {
+  fill: #ff6347 !important; /* 红色高亮 */
+  filter: drop-shadow(0 0 4px rgba(255, 99, 71, 0.6));
+}
+
+.state-search {
+  fill: #ffb347 !important; /* 橘黄色搜索命中 */
+  filter: drop-shadow(0 0 4px rgba(255, 179, 71, 0.6));
+}

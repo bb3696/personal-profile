@@ -1,0 +1,57 @@
+body {
+  margin: 0;
+  background: linear-gradient(135deg, #0d1a26, #1f3b4d); /* 备用渐变 */
+  font-family: 'Outfit', sans-serif;
+  color: white;
+  min-height: 100vh;
+}
+
+.parks-page {
+  width: 100%;
+  padding: 40px 20px;
+  box-sizing: border-box;
+  user-select: none;
+}
+
+.grid {
+  display: flex;
+  flex-wrap: wrap;             /* 自动换行 */
+  justify-content: center;     /* 居中对齐（关键） */
+  gap: 24px;
+  padding: 20px 0;
+   opacity: 0;
+  transform: translateY(20px);
+  animation: fadeInUp 0.8s ease-out forwards;
+  animation-delay: 0.1s;
+}
+
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.home {
+  position: absolute;
+  user-select: none;
+  top: 20px;
+  right: 20px;
+  font-size: 0.9rem;
+  font-weight: 100;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.visited-count {
+    font-size: 0.8em;
+    font-weight: thinner;
+    margin-left: 10px;
+    color: #ccc;
+}
+
+
+
+
+
+
