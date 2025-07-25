@@ -12,12 +12,6 @@ function AvatarCard() {
       />
       <div className="photo-name">Tony Yang</div>
       <div className="photo-links">
-        <a href="https://github.com/bb3696" target="_blank" rel="noopener noreferrer">
-          <i className="fab fa-github"></i>
-        </a>
-        <a href="https://www.linkedin.com/in/syang972/" target="_blank" rel="noopener noreferrer">
-          <i className="fab fa-linkedin"></i>
-        </a>
         <a href="mailto:syangnate972@gmail.com" target="_blank" rel="noopener noreferrer">
           <i className="fas fa-envelope"></i>
         </a>
