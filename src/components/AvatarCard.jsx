@@ -12,7 +12,7 @@ function AvatarCard() {
       />
       <div className="photo-name">Tony Yang</div>
       <div className="photo-links">
-        <a href="mailto:syangnate972@gmail.com" target="_blank" rel="noopener noreferrer">
+        <a href="mailto:tony.yang972@gmail.com" target="_blank" rel="noopener noreferrer">
           <i className="fas fa-envelope"></i>
         </a>
       </div>

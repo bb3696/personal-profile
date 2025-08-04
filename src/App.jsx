@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
 import Parks from './pages/Parks'; // 后续你可以添加 Parks 页面
 import USMap from './pages/USmap'; // 后续你可以添加 USmap 页面
@@ -11,14 +11,14 @@ import Footer from './components/Footer';
 function App() {
 
   return (
-    <>
+    <BrowserRouter>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/parks" element={<Parks />} />
         <Route path="/usmap" element={<USMap />} />
       </Routes>
       <Footer /> {/* ✅ 全局底部 */}
-    </>
+    </BrowserRouter>
   );
 }
 

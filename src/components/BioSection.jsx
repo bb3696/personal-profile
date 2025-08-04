@@ -8,16 +8,16 @@ function BioSection() {
   return (
     <div className="bio-section">
       <p className="bio">
-        I'm a Full Stack Developer with hands-on experience building scalable, user-focused web applications. I specialize in backend development using Java, Spring Boot, and JPA/Hibernate, and create responsive frontends with ReactJS.
+        I’m a Full Stack Developer with experience building scalable, event-driven web applications across logistics, e-commerce, and healthcare domains.
       </p>
       <p className="bio">
-        I've worked across the full development lifecycle—from designing databases in MySQL to deploying applications on AWS (EC2, S3, RDS). I also implement CI/CD pipelines using GitHub Actions and Docker to support fast, reliable releases.
+        My backend expertise includes Java 17, Spring Boot 3, and JPA/Hibernate. On the frontend, I build responsive user interfaces using ReactJS. I deploy cloud-native systems on AWS and set up CI/CD pipelines with GitHub Actions, Docker, and Terraform.
       </p>
       <p className="bio">
-         I take pride in writing clean, testable code that connects robust backend logic with intuitive user interfaces. My goal is to build maintainable, high-performance solutions that solve real-world business problems effectively.
+         Beyond Java, I also leverage Python and Django for data-driven applications, and have explored machine learning projects including neural style transfer using VGG models. I actively use tools like GitHub Copilot, Claude, and ChatGPT to enhance productivity and streamline development.
       </p>
       <p className="bio">
-        I love hiking! Here's a record of the parks I've <Link to="/parks" className="static-link">visited</Link> and the states I've <Link to="/usmap" className="static-link">visited</Link>.
+        Outside of tech, I’m passionate about hiking. Check out the <Link to="/parks" className="static-link">National-Parks</Link> and the <Link to="/usmap" className="static-link">States</Link> I've explored.
       </p>
     </div>
   );
