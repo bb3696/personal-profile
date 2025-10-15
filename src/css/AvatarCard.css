@@ -1,5 +1,5 @@
 .photo-section {
-  user-select: none;     /* 禁止选中头像区域任何内容 */
+  user-select: none;     
   cursor: default;
   flex-shrink: 0;
   text-align: center;
