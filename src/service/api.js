@@ -2,7 +2,8 @@ import { PARK_NAMES } from '../data/parkList';
 import imageMap from '../../parkImageMap.json'; // fullName → 文件名映射
 
 const BASE_URL = 'https://developer.nps.gov/api/v1';
-const API_KEY = 'g95NqAreaGWHTYsmGTS8XvfqvepxugbN7pg3t8PI';
+// Use Vite environment variable. Set VITE_NPS_API_KEY in your local .env (do NOT commit).
+const API_KEY = import.meta.env.VITE_NPS_API_KEY || '';
 
 function normalizeName(name) {
   return name

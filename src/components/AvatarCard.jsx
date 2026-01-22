@@ -1,7 +1,12 @@
 // src/components/AvatarCard.jsx
 import React from 'react';
+<<<<<<< HEAD
 import '../css/AvatarCard.css'; // 引入样式文件
 import avatar from "../assets/avatar.jpeg"; // 引入头像图片
+=======
+import '../css/AvatarCard.css';
+import avatar from '../assets/avatar-JmY5pLwg.jpeg';
+>>>>>>> 43f2093 (fix image issue)
 
 function AvatarCard() {
   return (
