@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import ParkCard from '../components/ParkCard';
-import { PARK_NAMES } from '../data/parkList';
+import { PARK_NAMES, DEFAULT_VISITED } from '../data/parkList';
 import SearchToggleBar from '../components/SearchToggleBar';
 import '../css/Parks.css';
 
@@ -67,6 +67,18 @@ function Parks() {
         const count = PARK_NAMES.filter((name) => localStorage.getItem(`visited_${name}`) === 'true').length;
         setVisitedCount(count);
     };
+
+    // 初始化：将 `DEFAULT_VISITED` 中列出的公园标记为已访问（如果尚未标记）
+    useEffect(() => {
+      if (Array.isArray(DEFAULT_VISITED) && DEFAULT_VISITED.length > 0) {
+        DEFAULT_VISITED.forEach((name) => {
+          if (PARK_NAMES.includes(name) && localStorage.getItem(`visited_${name}`) !== 'true') {
+            localStorage.setItem(`visited_${name}`, 'true');
+          }
+        });
+        updateVisitedCount();
+      }
+    }, []);
 
   return (
     <div className="parks-page">

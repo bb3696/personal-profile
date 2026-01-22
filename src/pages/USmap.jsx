@@ -5,7 +5,7 @@ import { geoCentroid, geoAlbersUsa } from "d3-geo";
 import { Annotation } from "react-simple-maps";
 import SearchToggleBar from "../components/SearchToggleBar";
 import { Link } from "react-router-dom";
-import STATE_ABBR from "../data/stateList";
+import { STATE_ABBR, DEFAULT_VISITED_STATES } from "../data/stateList";
 import "../css/USMap.css"; // 引入样式文件
 
 const geoUrl = "https://cdn.jsdelivr.net/npm/us-atlas@3/states-10m.json";
@@ -19,6 +19,8 @@ const USMap = () => {
   const [searchText, setSearchText] = useState("");
   const [showVisitedOnly, setShowVisitedOnly] = useState(false);
   const projection = geoAlbersUsa(); // ✅ 提前创建一次
+  const [geoList, setGeoList] = useState(null);
+  const initializedDefaults = React.useRef(false);
 
   useEffect(() => {
     localStorage.setItem("visitedStates", JSON.stringify(selected));
@@ -33,6 +35,39 @@ const USMap = () => {
     document.addEventListener("mousemove", onMove);
     return () => document.removeEventListener("mousemove", onMove);
   }, []);
+
+  // 当地理数据可用时，将 DEFAULT_VISITED_STATES 合并到已选列表（去重），保留用户已有选择
+  useEffect(() => {
+    if (!geoList) return;
+    if (!Array.isArray(DEFAULT_VISITED_STATES) || DEFAULT_VISITED_STATES.length === 0) return;
+    if (initializedDefaults.current) return;
+
+    const matches = [];
+    geoList.forEach((geo) => {
+      const name = geo.properties.name;
+      const abbr = STATE_ABBR[name];
+      const gid = geo.id;
+      DEFAULT_VISITED_STATES.forEach((def) => {
+        if (
+          def === name ||
+          def === abbr ||
+          def === gid ||
+          def === String(gid) ||
+          Number(def) === gid
+        ) {
+          if (!matches.includes(gid)) matches.push(gid);
+        }
+      });
+    });
+
+    if (matches.length > 0) {
+      const existing = Array.isArray(selected) ? selected.slice() : [];
+      const merged = Array.from(new Set([...existing, ...matches]));
+      setSelected(merged);
+      localStorage.setItem("visitedStates", JSON.stringify(merged));
+    }
+    initializedDefaults.current = true;
+  }, [geoList]);
 
   return (
     <div className="usmap-container">
@@ -57,8 +92,10 @@ const USMap = () => {
       <div className="usmap-map-wrapper">
         <ComposableMap projection="geoAlbersUsa">
           <Geographies geography={geoUrl}>
-            {({ geographies }) =>
-              geographies
+            {({ geographies }) => {
+              // cache geographies once for default initialization (schedule update to avoid setState during render)
+              if (geoList === null) setTimeout(() => setGeoList(geographies), 0);
+              return geographies
                 .filter((geo) => {
                   if (showVisitedOnly) {
                     return selected.includes(geo.id);
@@ -127,7 +164,7 @@ const USMap = () => {
                     </React.Fragment>
                   );
                 })
-            }
+            }}
           </Geographies>
         </ComposableMap>
       </div>

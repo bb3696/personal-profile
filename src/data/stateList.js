@@ -1,5 +1,4 @@
-// src/data/stateList.js
-const STATE_ABBR = {
+export const STATE_ABBR = {
   "Alabama": "AL", "Alaska": "AK", "Arizona": "AZ", "Arkansas": "AR", "California": "CA",
   "Colorado": "CO", "Connecticut": "CT", "Delaware": "DE", "Florida": "FL", "Georgia": "GA",
   "Hawaii": "HI", "Idaho": "ID", "Illinois": "IL", "Indiana": "IN", "Iowa": "IA",
@@ -13,4 +12,18 @@ const STATE_ABBR = {
   "District of Columbia": "DC"
 };
 
-export default STATE_ABBR;
+// 列出希望在页面加载时就保持“点亮”（已访问）的州。
+// 可以使用州全名（如 "California"）、缩写（"CA"）或 topojson 中的 geo.id（数字或字符串）。
+// 例如：export const DEFAULT_VISITED_STATES = ["CA", "New York", 6];
+export const DEFAULT_VISITED_STATES = [
+  "AZ", 
+  "CA", "CO", "CT", 
+  "DC", "DE",
+  "FL",
+  "GA", 
+  "IN", "IL", "KY", "LA", 
+  "MA", "MS", "MO", "MT", "MI", "ME", "MD",
+  "NV", "NH", "NY", "NJ", "NC", "ND", 
+  "OH", "OR", "PA", "SC", "SD", 
+  "TN", "TX", 
+  "UT", "VA", "WA", "WV", "WI", "WY"];

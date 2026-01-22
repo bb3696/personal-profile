@@ -8,3 +8,11 @@ export const PARK_NAMES  = [
   "Pinnacles", "Redwood", "Rocky Mountain", "Saguaro", "Sequoia", "Shenandoah", "Theodore Roosevelt", "Virgin Islands",
   "Voyageurs", "White Sands", "Wind Cave", "Wrangell–St. Elias", "Yellowstone", "Yosemite", "Zion"
 ];
+
+
+export const DEFAULT_VISITED = [
+"Acadia", "Arches", "Badlands", "Black Canyon", "Bryce Canyon", 
+"Canyonlands", "Capitol Reef","Congaree", "Crater Lake", "Death Valley", "Everglades", 
+"Gateway Arch", "Grand Canyon", "Grand Teton", "Great Sand Dunes", "Great Smoky Mountains",
+"Indiana Dunes", "Joshua Tree", "Kings Canyon", "Mammoth Cave", "Mesa Verde", "Mount Rainier", "North Cascades", "Olympic",
+"Pinnacles", "Rocky Mountain", "Saguaro", "Sequoia", "Wind Cave", "Yellowstone", "Yosemite", "Zion"];

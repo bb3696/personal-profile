@@ -1,5 +1,5 @@
 import React from 'react';
-import '../css/SearchBox.css'; // 可选
+import '../css/SearchBox.css';
 
 function SearchToggleBar({ searchText, setSearchText, showVisitedOnly, setShowVisitedOnly, placeholder }) {
   return (

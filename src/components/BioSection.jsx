@@ -1,7 +1,7 @@
 // src/components/BioSection.jsx
 import React from 'react';
 import { Link } from 'react-router-dom';
-import '../css/BioSection.css'; // 引入样式文件
+import '../css/BioSection.css';
 
 
 function BioSection() {
