@@ -1,4 +1,3 @@
-// src/components/BioSection.jsx
 import React from 'react';
 import { Link } from 'react-router-dom';
 import '../css/BioSection.css';
@@ -8,16 +7,14 @@ function BioSection() {
   return (
     <div className="bio-section">
       <p className="bio">
-        I’m a Full Stack Developer with experience building scalable, event-driven web applications across logistics, e-commerce, and healthcare domains.
+        I’m a Full-Stack engineer building highly available, cloud-native systems with Java, Spring Boot, and React. I design and deliver scalable platforms on AWS across microservices, CI/CD, observability, and performance engineering, turning complex requirements into clean, reliable solutions.
       </p>
       <p className="bio">
-        My backend expertise includes Java 17, Spring Boot 3, and JPA/Hibernate. On the frontend, I build responsive user interfaces using ReactJS. I deploy cloud-native systems on AWS and set up CI/CD pipelines with GitHub Actions, Docker, and Terraform.
-      </p>
+        I focus on real-world complexity: event-driven pipelines, async workflows, integrations, and production bottlenecks. From reducing latency with caching to improving resilience through Kafka tuning and automated testing, my goal is simple—make systems faster, more stable, and easier to evolve.      </p>
       <p className="bio">
-         Beyond Java, I also leverage Python and Django for data-driven applications, and have explored machine learning projects including neural style transfer using VGG models. I actively use tools like GitHub Copilot, Claude, and ChatGPT to enhance productivity and streamline development.
-      </p>
+        Beyond backend engineering, I explore data platforms and generative AI in production. I believe the future lies at the intersection of cloud, data, and AI—and my focus is turning emerging technology into reliable, scalable system capabilities.      </p>
       <p className="bio">
-        Outside of tech, I’m passionate about hiking. Check out the <Link to="/parks" className="static-link">National-Parks</Link> and the <Link to="/usmap" className="static-link">States</Link> I've explored.
+        Outside of tech, I’m passionate about hiking. Check out the <Link to="/parks" className="static-link">National-Parks</Link> and <Link to="/usmap" className="static-link">States</Link> I've explored.
       </p>
     </div>
   );

@@ -130,9 +130,8 @@ const USMap = () => {
                           )
                         }
                         stroke="#fff"
-                        className={`state-default ${
-                          isHighlighted ? "state-selected" : ""
-                        }`}
+                        className={`state-default ${isHighlighted ? "state-selected" : ""
+                          }`}
                         style={{
                           default: {
                             outline: "none",

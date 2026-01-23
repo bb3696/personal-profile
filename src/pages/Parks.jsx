@@ -15,8 +15,8 @@ function normalizeParkName(name) {
 
 function Parks() {
   const [searchText, setSearchText] = useState('');
-  const [showVisitedOnly, setShowVisitedOnly] = useState(false);  
-  
+  const [showVisitedOnly, setShowVisitedOnly] = useState(false);
+
 
   // 动态背景跟随鼠标
   useEffect(() => {
@@ -29,77 +29,77 @@ function Parks() {
     return () => document.removeEventListener('mousemove', onMove);
   }, []);
 
-    // 搜索 + 是否访问过滤逻辑
-    const filteredParks = PARK_NAMES.filter((name) => {
-        const matchesSearch = name.toLowerCase().includes(searchText.toLowerCase());
+  // 搜索 + 是否访问过滤逻辑
+  const filteredParks = PARK_NAMES.filter((name) => {
+    const matchesSearch = name.toLowerCase().includes(searchText.toLowerCase());
 
-        if (!matchesSearch) return false;
+    if (!matchesSearch) return false;
 
-        if (showVisitedOnly) {
-            const visited = localStorage.getItem(`visited_${name}`) === 'true';
-            return visited;
-        }
+    if (showVisitedOnly) {
+      const visited = localStorage.getItem(`visited_${name}`) === 'true';
+      return visited;
+    }
 
-        return true;
-    });
+    return true;
+  });
 
-    // 追踪动画效果
-    const [isTransitioning, setIsTransitioning] = useState(false);
+  // 追踪动画效果
+  const [isTransitioning, setIsTransitioning] = useState(false);
 
-    useEffect(() => {
+  useEffect(() => {
     // 当 filter 条件变化时触发动画
     setIsTransitioning(true);
     const timeout = setTimeout(() => {
-        setIsTransitioning(false);
+      setIsTransitioning(false);
     }, 400); // 动画时长
 
     return () => clearTimeout(timeout);
-    }, [searchText, showVisitedOnly]);
+  }, [searchText, showVisitedOnly]);
 
 
-    // 计算总公园数和已访问公园数
-    const totalParks = PARK_NAMES.length;
-    const [visitedCount, setVisitedCount] = useState(() =>
+  // 计算总公园数和已访问公园数
+  const totalParks = PARK_NAMES.length;
+  const [visitedCount, setVisitedCount] = useState(() =>
     PARK_NAMES.filter((name) => localStorage.getItem(`visited_${name}`) === 'true').length
-    );
-    
-    const updateVisitedCount = () => {
-        const count = PARK_NAMES.filter((name) => localStorage.getItem(`visited_${name}`) === 'true').length;
-        setVisitedCount(count);
-    };
+  );
 
-    // 初始化：将 `DEFAULT_VISITED` 中列出的公园标记为已访问（如果尚未标记）
-    useEffect(() => {
-      if (Array.isArray(DEFAULT_VISITED) && DEFAULT_VISITED.length > 0) {
-        DEFAULT_VISITED.forEach((name) => {
-          if (PARK_NAMES.includes(name) && localStorage.getItem(`visited_${name}`) !== 'true') {
-            localStorage.setItem(`visited_${name}`, 'true');
-          }
-        });
-        updateVisitedCount();
-      }
-    }, []);
+  const updateVisitedCount = () => {
+    const count = PARK_NAMES.filter((name) => localStorage.getItem(`visited_${name}`) === 'true').length;
+    setVisitedCount(count);
+  };
+
+  // 初始化：将 `DEFAULT_VISITED` 中列出的公园标记为已访问（如果尚未标记）
+  useEffect(() => {
+    if (Array.isArray(DEFAULT_VISITED) && DEFAULT_VISITED.length > 0) {
+      DEFAULT_VISITED.forEach((name) => {
+        if (PARK_NAMES.includes(name) && localStorage.getItem(`visited_${name}`) !== 'true') {
+          localStorage.setItem(`visited_${name}`, 'true');
+        }
+      });
+      updateVisitedCount();
+    }
+  }, []);
 
   return (
     <div className="parks-page">
-        <h1>
+      <h1>
         National Parks I've Explored
         <span className="visited-count">
-            ({visitedCount} / {totalParks})
+          ({visitedCount} / {totalParks})
         </span>
-        </h1>
+      </h1>
 
       <div className="home">
         <Link className="park-link" to="/">Home</Link>
       </div>
 
-        <SearchToggleBar
+      <SearchToggleBar
         searchText={searchText}
         setSearchText={setSearchText}
         showVisitedOnly={showVisitedOnly}
         setShowVisitedOnly={setShowVisitedOnly}
         placeholder={"Search parks..."} // 👈 这里改提示文字
-        />
+      />
 
       {/* 🎯 过滤后的卡片展示 */}
       <div className={`grid fade-in ${isTransitioning ? 'grid-transition' : ''}`}>

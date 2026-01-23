@@ -15,7 +15,7 @@ body {
   justify-content: center;
   width: 100vw;
   margin-left: calc(-50vw + 50%);
-  background: linear-gradient(135deg, #0d1a26, #1f3b4d);
+  background: transparent;
   padding: 200px 0;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
 }

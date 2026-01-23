@@ -4,7 +4,7 @@ import '../css/Footer.css';
 function Footer() {
   return (
     <footer className="footer">
-      Tony Yang © 2025
+      Tony Yang © 2026
     </footer>
   );
 }

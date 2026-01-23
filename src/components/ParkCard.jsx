@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import '../css/ParkCard.css';
 
-function ParkCard({ park, image, className= '', showVisitedOnly = false, onToggleVisited, visible }) {
+function ParkCard({ park, image, className = '', showVisitedOnly = false, onToggleVisited, visible }) {
   const [visited, setVisited] = useState(false);
 
   const googleSearchUrl = `https://www.google.com/search?q=${encodeURIComponent(park + ' National Park')}`;
@@ -18,7 +18,7 @@ function ParkCard({ park, image, className= '', showVisitedOnly = false, onToggl
     if (onToggleVisited) onToggleVisited();
   };
 
-    // 延迟隐藏逻辑
+  // 延迟隐藏逻辑
   const [hide, setHide] = useState(false);
 
   useEffect(() => {
@@ -32,11 +32,11 @@ function ParkCard({ park, image, className= '', showVisitedOnly = false, onToggl
 
 
   return (
-      <div
-        className={`park-card ${visited ? 'visited' : ''} ${className} ${!visible && hide ? 'hidden' : ''}`}
-        data-visible={visible}
-        title={visited ? 'Visited' : 'Click image to mark as visited'}
-      >
+    <div
+      className={`park-card ${visited ? 'visited' : ''} ${className} ${!visible && hide ? 'hidden' : ''}`}
+      data-visible={visible}
+      title={visited ? 'Visited' : 'Click image to mark as visited'}
+    >
       <img
         src={image}
         alt={park}

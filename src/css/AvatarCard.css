@@ -55,6 +55,6 @@
 .photo-links a:hover {
   color: #ffeb3b;
   text-decoration: none;
-  color: inherit;
+  transform: translateY(-2px);
 
 }
