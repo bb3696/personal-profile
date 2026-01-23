@@ -2,13 +2,16 @@ import React, { useEffect, useState } from 'react';
 import '../css/ParkCard.css';
 
 function ParkCard({ park, image, className = '', showVisitedOnly = false, onToggleVisited, visible }) {
-  const [visited, setVisited] = useState(false);
 
   const googleSearchUrl = `https://www.google.com/search?q=${encodeURIComponent(park + ' National Park')}`;
 
+  const [visited, setVisited] = useState(() => {
+    return localStorage.getItem(`visited_${park}`) === 'true';
+  });
+
   useEffect(() => {
-    const saved = localStorage.getItem(`visited_${park}`);
-    setVisited(saved === 'true');
+    // park 变化时同步更新（路由/过滤导致组件复用时有用）
+    setVisited(localStorage.getItem(`visited_${park}`) === 'true');
   }, [park]);
 
   const toggleVisited = () => {

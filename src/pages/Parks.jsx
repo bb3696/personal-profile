@@ -106,7 +106,7 @@ function Parks() {
         {filteredParks.length === 0 ? (
           <p style={{ textAlign: 'center', color: '#aaa' }}>No matching parks found.</p>
         ) : (
-          PARK_NAMES.map((name) => {
+          filteredParks.map((name) => {
             const visited = localStorage.getItem(`visited_${name}`) === 'true';
             const matchesSearch = name.toLowerCase().includes(searchText.toLowerCase());
             const shouldShow = matchesSearch && (visited || !showVisitedOnly);
