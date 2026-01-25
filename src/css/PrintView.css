@@ -71,13 +71,24 @@
   border-radius: 8px;
   border: 2px solid #ddd;
   margin-bottom: 8px;
+  filter: grayscale(100%) brightness(0.5);
+  transition: filter 0.2s;
+}
+
+.print-park-item--visited .print-park-image {
+  filter: none;
 }
 
 .print-park-name {
   font-size: 14px;
   font-weight: 500;
   margin: 0;
+  color: #999;
+}
+
+.print-park-item--visited .print-park-name {
   color: #333;
+  font-weight: 600;
 }
 
 /* States 打印样式 */
@@ -90,6 +101,37 @@
   text-align: center;
   margin-bottom: 30px;
   color: #333;
+}
+
+.print-map-wrapper {
+  width: 100%;
+  max-width: 700px;
+  margin: 30px auto;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+  background: #fff;
+  page-break-inside: avoid;
+}
+
+.print-map {
+  width: 100%;
+  height: auto;
+}
+
+.print-map svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.print-statename {
+  font-family: 'Outfit', sans-serif;
+  pointer-events: none;
+  fill: #111;
+  font-size: 8px;
+  font-weight: bold;
+  user-select: none;
 }
 
 .print-states-grid {

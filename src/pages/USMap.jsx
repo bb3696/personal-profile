@@ -80,13 +80,23 @@ const USMap = () => {
 
   const handlePrint = () => {
     setShowPrintView(true);
+    // 等待地图数据加载和 DOM 渲染完成
     setTimeout(() => {
       window.print();
-    }, 100);
+    }, geoList ? 300 : 1000);
   };
 
   const handleClosePrint = () => {
     setShowPrintView(false);
+  };
+
+  // 获取已访问的州名列表（用于打印）
+  const getVisitedStateNames = () => {
+    if (!geoList || selected.length === 0) return [];
+    return geoList
+      .filter((geo) => selected.includes(geo.id))
+      .map((geo) => geo.properties.name)
+      .filter(Boolean);
   };
 
   return (
@@ -95,7 +105,11 @@ const USMap = () => {
         <div className="print-modal">
           <div className="print-modal-content">
             <button type="button" className="print-close-btn no-print" onClick={handleClosePrint}>×</button>
-            <StatesPrintView />
+            <StatesPrintView 
+              visitedStateNames={getVisitedStateNames()} 
+              selectedIds={selected}
+              geoList={geoList}
+            />
           </div>
         </div>
       )}

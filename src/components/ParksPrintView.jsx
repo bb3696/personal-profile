@@ -10,10 +10,9 @@ function normalizeParkName(name) {
 }
 
 function ParksPrintView() {
-  const visitedParks = PARK_NAMES.filter((name) => 
+  const visitedCount = PARK_NAMES.filter((name) => 
     localStorage.getItem(`visited_${name}`) === 'true'
-  );
-  const visitedCount = visitedParks.length;
+  ).length;
   const totalParks = PARK_NAMES.length;
   const date = new Date().toLocaleDateString('en-US', { 
     year: 'numeric', 
@@ -32,26 +31,26 @@ function ParksPrintView() {
       </div>
 
       <div className="print-content">
-        {visitedParks.length === 0 ? (
-          <p className="print-empty">No parks visited yet.</p>
-        ) : (
-          <div className="print-parks-grid">
-            {visitedParks.map((name) => {
-              const filename = normalizeParkName(name);
-              const imagePath = `${import.meta.env.BASE_URL}thumbnails/${filename}`;
-              return (
-                <div key={name} className="print-park-item">
-                  <img 
-                    src={imagePath} 
-                    alt={name} 
-                    className="print-park-image"
-                  />
-                  <p className="print-park-name">{name}</p>
-                </div>
-              );
-            })}
-          </div>
-        )}
+        <div className="print-parks-grid">
+          {PARK_NAMES.map((name) => {
+            const visited = localStorage.getItem(`visited_${name}`) === 'true';
+            const filename = normalizeParkName(name);
+            const imagePath = `${import.meta.env.BASE_URL}thumbnails/${filename}`;
+            return (
+              <div 
+                key={name} 
+                className={`print-park-item ${visited ? 'print-park-item--visited' : ''}`}
+              >
+                <img 
+                  src={imagePath} 
+                  alt={name} 
+                  className="print-park-image"
+                />
+                <p className="print-park-name">{name}</p>
+              </div>
+            );
+          })}
+        </div>
       </div>
 
       <div className="print-footer">
