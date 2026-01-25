@@ -66,12 +66,18 @@ function Parks() {
   // 初始化：将 `DEFAULT_VISITED` 中列出的公园标记为已访问（如果尚未标记）
   useEffect(() => {
     if (Array.isArray(DEFAULT_VISITED) && DEFAULT_VISITED.length > 0) {
+      let hasChanges = false;
       DEFAULT_VISITED.forEach((name) => {
         if (PARK_NAMES.includes(name) && localStorage.getItem(`visited_${name}`) !== 'true') {
           localStorage.setItem(`visited_${name}`, 'true');
+          hasChanges = true;
         }
       });
-      updateVisitedCount();
+      if (hasChanges) {
+        updateVisitedCount();
+        // 触发 ParkCard 重新读取 localStorage
+        setRefreshKey((k) => k + 1);
+      }
     }
   }, []);
 
