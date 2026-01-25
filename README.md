@@ -15,7 +15,7 @@ A clean and responsive React + Vite portfolio site with an interactive showcase 
 - 📍  U.S. state visitation map (`/usmap`)
 - 🔍 Search & filter parks with smooth animation
 - ✅ Visited parks tracking (localStorage)
-- 🌐 Deployed on GitHub Pages
+- 🌐 Deployed on GitHub Pages / AWS Amplify
 
 ---
 
@@ -39,3 +39,23 @@ cd personal-profile
 npm install
 npm run dev
 ```
+
+## 📦 Deployment
+
+### GitHub Pages
+默认配置，直接运行：
+```bash
+npm run build
+npm run deploy
+```
+
+### AWS Amplify
+项目已包含 `amplify.yml` 配置文件。在 AWS Amplify Console 中：
+1. 连接你的 GitHub 仓库
+2. Amplify 会自动检测 `amplify.yml` 并使用根路径 (`/`) 构建
+3. 如需手动设置环境变量，在 Amplify Console → App settings → Environment variables 添加：
+   - `VITE_BASE_URL` = `/`
+
+**注意**：`dist/index.html` 中的资源路径会根据 `VITE_BASE_URL` 自动调整：
+- GitHub Pages: `/personal-profile/assets/...`
+- AWS Amplify: `/assets/...`
