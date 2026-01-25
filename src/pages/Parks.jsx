@@ -43,20 +43,6 @@ function Parks() {
     return true;
   });
 
-  // 追踪动画效果
-  const [isTransitioning, setIsTransitioning] = useState(false);
-
-  useEffect(() => {
-    // 当 filter 条件变化时触发动画
-    setIsTransitioning(true);
-    const timeout = setTimeout(() => {
-      setIsTransitioning(false);
-    }, 400); // 动画时长
-
-    return () => clearTimeout(timeout);
-  }, [searchText, showVisitedOnly]);
-
-
   // 计算总公园数和已访问公园数
   const totalParks = PARK_NAMES.length;
   const [visitedCount, setVisitedCount] = useState(() =>
@@ -66,6 +52,15 @@ function Parks() {
   const updateVisitedCount = () => {
     const count = PARK_NAMES.filter((name) => localStorage.getItem(`visited_${name}`) === 'true').length;
     setVisitedCount(count);
+  };
+
+  const [refreshKey, setRefreshKey] = useState(0);
+
+  const clearVisited = () => {
+    PARK_NAMES.forEach((name) => localStorage.removeItem(`visited_${name}`));
+    setShowVisitedOnly(false);
+    setRefreshKey((k) => k + 1);
+    updateVisitedCount();
   };
 
   // 初始化：将 `DEFAULT_VISITED` 中列出的公园标记为已访问（如果尚未标记）
@@ -98,31 +93,23 @@ function Parks() {
         setSearchText={setSearchText}
         showVisitedOnly={showVisitedOnly}
         setShowVisitedOnly={setShowVisitedOnly}
-        placeholder={"Search parks..."} // 👈 这里改提示文字
+        placeholder="Search parks..."
+        onClear={clearVisited}
       />
 
-      {/* 🎯 过滤后的卡片展示 */}
-      <div className={`grid fade-in ${isTransitioning ? 'grid-transition' : ''}`}>
+      <div className="grid fade-in">
         {filteredParks.length === 0 ? (
           <p style={{ textAlign: 'center', color: '#aaa' }}>No matching parks found.</p>
         ) : (
           filteredParks.map((name) => {
-            const visited = localStorage.getItem(`visited_${name}`) === 'true';
-            const matchesSearch = name.toLowerCase().includes(searchText.toLowerCase());
-            const shouldShow = matchesSearch && (visited || !showVisitedOnly);
-
             const filename = normalizeParkName(name);
             const imagePath = `${import.meta.env.BASE_URL}thumbnails/${filename}`;
-
             return (
               <ParkCard
-                key={name}
+                key={`${name}-${refreshKey}`}
                 park={name}
                 image={imagePath}
-                showVisitedOnly={showVisitedOnly}
-                className={showVisitedOnly ? 'visited-transition' : ''}
                 onToggleVisited={updateVisitedCount}
-                visible={shouldShow} // ✅ 传入 visible 控制展示
               />
             );
           })

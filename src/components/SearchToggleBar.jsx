@@ -1,7 +1,7 @@
 import React from 'react';
-import '../css/SearchBox.css';
+import '../css/SearchToggleBar.css';
 
-function SearchToggleBar({ searchText, setSearchText, showVisitedOnly, setShowVisitedOnly, placeholder }) {
+function SearchToggleBar({ searchText, setSearchText, showVisitedOnly, setShowVisitedOnly, placeholder, onClear }) {
   return (
     <div className="search-toggle-container">
       <input
@@ -17,12 +17,18 @@ function SearchToggleBar({ searchText, setSearchText, showVisitedOnly, setShowVi
           <input
             type="checkbox"
             checked={showVisitedOnly}
-            onChange={() => setShowVisitedOnly(!showVisitedOnly)}
+            onChange={(e) => setShowVisitedOnly(e.target.checked)}
           />
           <span className="slider" />
         </label>
         <span className="toggle-label">Visited</span>
       </div>
+
+      {onClear != null && (
+        <button type="button" className="clear-btn" onClick={onClear} title="Clear all visited">
+          Clear
+        </button>
+      )}
     </div>
   );
 }

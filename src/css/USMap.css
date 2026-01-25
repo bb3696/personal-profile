@@ -12,14 +12,6 @@
   margin-bottom: 16px;
 }
 
-.visited-count {
-    font-size: 0.8em;
-    font-weight: thinner;
-    margin-left: 10px;
-    color: #ccc;
-}
-
-
 .usmap-map-wrapper {
   border-radius: 8px;
   overflow: hidden;

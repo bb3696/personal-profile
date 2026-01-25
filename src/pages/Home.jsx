@@ -1,5 +1,4 @@
-import React from 'react';
-import { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import AvatarCard from '../components/AvatarCard';
 import BioSection from '../components/BioSection';
 import { Link } from 'react-router-dom';
@@ -19,15 +18,16 @@ function Home() {
 
     return () => {
       document.removeEventListener('mousemove', onMove);
-      document.body.style.background = originalBg; // 离开 Home 时恢复
+      document.body.style.background = originalBg;
     };
   }, []);
-
 
   return (
     <div className="layout-container fade-in">
       <div className="top-name">Tony Yang</div>
-      <div className="about-me"><Link className="static-link" to="#">About</Link></div>
+      <div className="about-me">
+        <span className="static-link" title="Coming soon">About</span>
+      </div>
       <BioSection />
       <AvatarCard />
     </div>

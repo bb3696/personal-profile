@@ -39,22 +39,6 @@
   z-index: 1;
 }
 
-/* ✅ 第一步：开始过渡为灰色 */
-.park-card[data-visible="false"] {
-  opacity: 0.3; /* 灰色感 */
-  pointer-events: none;
-}
-
-/* ✅ 第二步：0.3s后彻底移除 */
-.park-card[data-visible="false"].hidden {
-  opacity: 0;
-  transform: scale(0.9);
-  position: absolute;
-  visibility: hidden;
-  z-index: 0;
-}
-
-
 .park-name {
   position: absolute;
   bottom: 0;

@@ -6,7 +6,7 @@ import { Annotation } from "react-simple-maps";
 import SearchToggleBar from "../components/SearchToggleBar";
 import { Link } from "react-router-dom";
 import { STATE_ABBR, DEFAULT_VISITED_STATES } from "../data/stateList";
-import "../css/USMap.css"; // 引入样式文件
+import "../css/USMap.css";
 
 const geoUrl = "https://cdn.jsdelivr.net/npm/us-atlas@3/states-10m.json";
 
@@ -67,7 +67,13 @@ const USMap = () => {
       localStorage.setItem("visitedStates", JSON.stringify(merged));
     }
     initializedDefaults.current = true;
-  }, [geoList]);
+  }, [geoList, selected]);
+
+  const clearVisited = () => {
+    setSelected([]);
+    setShowVisitedOnly(false);
+    localStorage.setItem("visitedStates", JSON.stringify([]));
+  };
 
   return (
     <div className="usmap-container">
@@ -87,7 +93,8 @@ const USMap = () => {
         setSearchText={setSearchText}
         showVisitedOnly={showVisitedOnly}
         setShowVisitedOnly={setShowVisitedOnly}
-        placeholder="Search states..." // 👈 这里改提示文字
+        placeholder="Search states..."
+        onClear={clearVisited}
       />
       <div className="usmap-map-wrapper">
         <ComposableMap projection="geoAlbersUsa">

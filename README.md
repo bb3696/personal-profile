@@ -38,3 +38,4 @@ git clone https://github.com/bb3696/personal-profile.git
 cd personal-profile
 npm install
 npm run dev
+```

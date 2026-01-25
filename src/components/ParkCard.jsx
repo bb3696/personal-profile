@@ -1,16 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import '../css/ParkCard.css';
 
-function ParkCard({ park, image, className = '', showVisitedOnly = false, onToggleVisited, visible }) {
-
+function ParkCard({ park, image, onToggleVisited }) {
   const googleSearchUrl = `https://www.google.com/search?q=${encodeURIComponent(park + ' National Park')}`;
 
-  const [visited, setVisited] = useState(() => {
-    return localStorage.getItem(`visited_${park}`) === 'true';
-  });
+  const [visited, setVisited] = useState(() => localStorage.getItem(`visited_${park}`) === 'true');
 
   useEffect(() => {
-    // park 变化时同步更新（路由/过滤导致组件复用时有用）
     setVisited(localStorage.getItem(`visited_${park}`) === 'true');
   }, [park]);
 
@@ -18,26 +14,12 @@ function ParkCard({ park, image, className = '', showVisitedOnly = false, onTogg
     const newVisited = !visited;
     setVisited(newVisited);
     localStorage.setItem(`visited_${park}`, newVisited.toString());
-    if (onToggleVisited) onToggleVisited();
+    onToggleVisited?.();
   };
-
-  // 延迟隐藏逻辑
-  const [hide, setHide] = useState(false);
-
-  useEffect(() => {
-    if (!visible) {
-      const timeout = setTimeout(() => setHide(true), 200);
-      return () => clearTimeout(timeout);
-    } else {
-      setHide(false);
-    }
-  }, [visible]);
-
 
   return (
     <div
-      className={`park-card ${visited ? 'visited' : ''} ${className} ${!visible && hide ? 'hidden' : ''}`}
-      data-visible={visible}
+      className={`park-card ${visited ? 'visited' : ''}`}
       title={visited ? 'Visited' : 'Click image to mark as visited'}
     >
       <img

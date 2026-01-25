@@ -77,3 +77,20 @@
 .toggle-switch input:checked + .slider::before {
   transform: translateX(20px);
 }
+
+.clear-btn {
+  padding: 8px 14px;
+  font-size: 14px;
+  font-family: inherit;
+  color: #ccc;
+  background: transparent;
+  border: 1px solid #555;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: border-color 0.2s, color 0.2s;
+}
+
+.clear-btn:hover {
+  color: #fff;
+  border-color: #888;
+}
