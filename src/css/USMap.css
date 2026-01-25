@@ -3,7 +3,13 @@
   max-width: 1200px;
   margin: auto;
   font-family: 'Outfit', sans-serif;
-   }
+}
+
+/* USMap 页面：Nav 在右侧 */
+.usmap-container .top-nav {
+  left: auto;
+  right: 20px;
+}
 
 .usmap-title {
   font-size: 28px;
@@ -72,4 +78,65 @@
 .state-search {
   fill: #ffb347 !important; /* 橘黄色搜索命中 */
   filter: drop-shadow(0 0 4px rgba(255, 179, 71, 0.6));
+}
+
+.print-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.8);
+  z-index: 1000;
+  overflow-y: auto;
+  padding: 20px;
+}
+
+.print-modal-content {
+  position: relative;
+  background: white;
+  margin: 0 auto;
+  max-width: 900px;
+  min-height: 100vh;
+}
+
+.print-close-btn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 40px;
+  height: 40px;
+  border: none;
+  background: rgba(0, 0, 0, 0.5);
+  color: white;
+  font-size: 24px;
+  border-radius: 50%;
+  cursor: pointer;
+  z-index: 1001;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.print-close-btn:hover {
+  background: rgba(0, 0, 0, 0.7);
+}
+
+@media print {
+  .usmap-container .usmap-page-chrome.no-print,
+  .usmap-container .usmap-map-wrapper.no-print {
+    display: none !important;
+  }
+
+  .print-modal {
+    position: static;
+    background: transparent !important;
+    padding: 0;
+    overflow: visible;
+  }
+
+  .print-modal-content {
+    box-shadow: none;
+    background: transparent !important;
+  }
 }

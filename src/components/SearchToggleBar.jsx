@@ -1,7 +1,7 @@
 import React from 'react';
 import '../css/SearchToggleBar.css';
 
-function SearchToggleBar({ searchText, setSearchText, showVisitedOnly, setShowVisitedOnly, placeholder, onClear }) {
+function SearchToggleBar({ searchText, setSearchText, showVisitedOnly, setShowVisitedOnly, placeholder, onClear, onPrint }) {
   return (
     <div className="search-toggle-container">
       <input
@@ -27,6 +27,12 @@ function SearchToggleBar({ searchText, setSearchText, showVisitedOnly, setShowVi
       {onClear != null && (
         <button type="button" className="clear-btn" onClick={onClear} title="Clear all visited">
           Clear
+        </button>
+      )}
+
+      {onPrint != null && (
+        <button type="button" className="print-btn" onClick={onPrint} title="Print / Export PDF">
+          Print
         </button>
       )}
     </div>

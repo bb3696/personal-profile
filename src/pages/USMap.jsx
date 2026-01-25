@@ -4,8 +4,9 @@ import { ComposableMap, Geographies, Geography } from "react-simple-maps";
 import { geoCentroid, geoAlbersUsa } from "d3-geo";
 import { Annotation } from "react-simple-maps";
 import SearchToggleBar from "../components/SearchToggleBar";
-import { Link } from "react-router-dom";
 import { STATE_ABBR, DEFAULT_VISITED_STATES } from "../data/stateList";
+import StatesPrintView from "../components/StatesPrintView";
+import TopNav from "../components/TopNav";
 import "../css/USMap.css";
 
 const geoUrl = "https://cdn.jsdelivr.net/npm/us-atlas@3/states-10m.json";
@@ -69,34 +70,55 @@ const USMap = () => {
     initializedDefaults.current = true;
   }, [geoList, selected]);
 
+  const [showPrintView, setShowPrintView] = useState(false);
+
   const clearVisited = () => {
     setSelected([]);
     setShowVisitedOnly(false);
     localStorage.setItem("visitedStates", JSON.stringify([]));
   };
 
+  const handlePrint = () => {
+    setShowPrintView(true);
+    setTimeout(() => {
+      window.print();
+    }, 100);
+  };
+
+  const handleClosePrint = () => {
+    setShowPrintView(false);
+  };
+
   return (
     <div className="usmap-container">
-      <h1 className="usmap-title">
-        US States I've Visited
-        <span className="visited-count">({selected.length} / 50)</span>
-      </h1>
+      {showPrintView && (
+        <div className="print-modal">
+          <div className="print-modal-content">
+            <button type="button" className="print-close-btn no-print" onClick={handleClosePrint}>×</button>
+            <StatesPrintView />
+          </div>
+        </div>
+      )}
 
-      <div className="home">
-        <Link className="park-link" to="/">
-          Home
-        </Link>
+      <div className={`usmap-page-chrome ${showPrintView ? 'no-print' : ''}`}>
+        <TopNav />
+        <h1 className="usmap-title">
+          US States I've Visited
+          <span className="visited-count">({selected.length} / 50)</span>
+        </h1>
+
+        <SearchToggleBar
+          searchText={searchText}
+          setSearchText={setSearchText}
+          showVisitedOnly={showVisitedOnly}
+          setShowVisitedOnly={setShowVisitedOnly}
+          placeholder="Search states..."
+          onClear={clearVisited}
+          onPrint={handlePrint}
+        />
       </div>
 
-      <SearchToggleBar
-        searchText={searchText}
-        setSearchText={setSearchText}
-        showVisitedOnly={showVisitedOnly}
-        setShowVisitedOnly={setShowVisitedOnly}
-        placeholder="Search states..."
-        onClear={clearVisited}
-      />
-      <div className="usmap-map-wrapper">
+      <div className={`usmap-map-wrapper ${showPrintView ? 'no-print' : ''}`}>
         <ComposableMap projection="geoAlbersUsa">
           <Geographies geography={geoUrl}>
             {({ geographies }) => {

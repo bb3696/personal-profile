@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import AvatarCard from '../components/AvatarCard';
 import BioSection from '../components/BioSection';
-import { Link } from 'react-router-dom';
+import TopNav from '../components/TopNav';
 import '../css/Home.css';
 
 function Home() {
@@ -24,10 +24,8 @@ function Home() {
 
   return (
     <div className="layout-container fade-in">
+      <TopNav />
       <div className="top-name">Tony Yang</div>
-      <div className="about-me">
-        <span className="static-link" title="Coming soon">About</span>
-      </div>
       <BioSection />
       <AvatarCard />
     </div>

@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
 import ParkCard from '../components/ParkCard';
 import { PARK_NAMES, DEFAULT_VISITED } from '../data/parkList';
 import SearchToggleBar from '../components/SearchToggleBar';
+import ParksPrintView from '../components/ParksPrintView';
+import TopNav from '../components/TopNav';
 import '../css/Parks.css';
 
 function normalizeParkName(name) {
@@ -56,11 +57,25 @@ function Parks() {
 
   const [refreshKey, setRefreshKey] = useState(0);
 
+  const [showPrintView, setShowPrintView] = useState(false);
+
   const clearVisited = () => {
     PARK_NAMES.forEach((name) => localStorage.removeItem(`visited_${name}`));
     setShowVisitedOnly(false);
     setRefreshKey((k) => k + 1);
     updateVisitedCount();
+  };
+
+  const handlePrint = () => {
+    setShowPrintView(true);
+    // 等待 DOM 更新后触发打印
+    setTimeout(() => {
+      window.print();
+    }, 100);
+  };
+
+  const handleClosePrint = () => {
+    setShowPrintView(false);
   };
 
   // 初始化：将 `DEFAULT_VISITED` 中列出的公园标记为已访问（如果尚未标记）
@@ -83,43 +98,52 @@ function Parks() {
 
   return (
     <div className="parks-page">
-      <h1>
-        National Parks I've Explored
-        <span className="visited-count">
-          ({visitedCount} / {totalParks})
-        </span>
-      </h1>
+      {showPrintView && (
+        <div className="print-modal">
+          <div className="print-modal-content">
+            <button className="print-close-btn no-print" onClick={handleClosePrint} type="button">×</button>
+            <ParksPrintView />
+          </div>
+        </div>
+      )}
 
-      <div className="home">
-        <Link className="park-link" to="/">Home</Link>
-      </div>
+      <div className={`parks-page-chrome ${showPrintView ? 'no-print' : ''}`}>
+        <TopNav />
+        <h1>
+          National Parks I've Explored
+          <span className="visited-count">
+            ({visitedCount} / {totalParks})
+          </span>
+        </h1>
 
-      <SearchToggleBar
-        searchText={searchText}
-        setSearchText={setSearchText}
-        showVisitedOnly={showVisitedOnly}
-        setShowVisitedOnly={setShowVisitedOnly}
-        placeholder="Search parks..."
-        onClear={clearVisited}
-      />
+        <SearchToggleBar
+          searchText={searchText}
+          setSearchText={setSearchText}
+          showVisitedOnly={showVisitedOnly}
+          setShowVisitedOnly={setShowVisitedOnly}
+          placeholder="Search parks..."
+          onClear={clearVisited}
+          onPrint={handlePrint}
+        />
 
-      <div className="grid fade-in">
-        {filteredParks.length === 0 ? (
-          <p style={{ textAlign: 'center', color: '#aaa' }}>No matching parks found.</p>
-        ) : (
-          filteredParks.map((name) => {
-            const filename = normalizeParkName(name);
-            const imagePath = `${import.meta.env.BASE_URL}thumbnails/${filename}`;
-            return (
-              <ParkCard
-                key={`${name}-${refreshKey}`}
-                park={name}
-                image={imagePath}
-                onToggleVisited={updateVisitedCount}
-              />
-            );
-          })
-        )}
+        <div className="grid fade-in">
+          {filteredParks.length === 0 ? (
+            <p style={{ textAlign: 'center', color: '#aaa' }}>No matching parks found.</p>
+          ) : (
+            filteredParks.map((name) => {
+              const filename = normalizeParkName(name);
+              const imagePath = `${import.meta.env.BASE_URL}thumbnails/${filename}`;
+              return (
+                <ParkCard
+                  key={`${name}-${refreshKey}`}
+                  park={name}
+                  image={imagePath}
+                  onToggleVisited={updateVisitedCount}
+                />
+              );
+            })
+          )}
+        </div>
       </div>
     </div>
   );

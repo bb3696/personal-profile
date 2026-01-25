@@ -3,7 +3,7 @@ import '../css/Footer.css';
 
 function Footer() {
   return (
-    <footer className="footer">
+    <footer className="footer no-print">
       Tony Yang © 2026
     </footer>
   );

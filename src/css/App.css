@@ -40,3 +40,13 @@ a:hover {
   margin-left: 10px;
   color: #ccc;
 }
+
+@media print {
+  .no-print {
+    display: none !important;
+  }
+
+  body {
+    background: white !important;
+  }
+}

@@ -1,0 +1,32 @@
+.top-nav {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.9rem;
+  font-weight: 100;
+  z-index: 10;
+}
+
+.top-nav-link {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.top-nav-link:hover {
+  text-decoration: underline;
+}
+
+.top-nav-link--current {
+  color: rgba(255, 255, 255, 0.5);
+  cursor: default;
+  pointer-events: none;
+}
+
+.top-nav-sep {
+  color: rgba(255, 255, 255, 0.4);
+  user-select: none;
+}
