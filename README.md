@@ -21,11 +21,11 @@ A clean and responsive React + Vite portfolio site with an interactive showcase 
 
 ## 🚀 Tech Stack
 
-- [React 19](https://react.dev)
+- [React 18](https://react.dev)
 - [Vite](https://vitejs.dev)
 - React Router DOM
-- Font Awesome
-- D3.js (map rendering)
+- Lucide React
+- D3.js + TopoJSON (map rendering)
 - LocalStorage
 - GitHub Pages
 

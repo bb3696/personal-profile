@@ -1,12 +1,42 @@
 .footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  width: min(var(--layout-wide), calc(100% - (var(--page-pad) * 2)));
+  margin: auto auto 0;
+  padding: 20px 0 28px;
+  color: var(--color-subtle);
+  font-size: 0.86rem;
+  font-weight: 600;
   text-align: center;
-  padding: 16px 0;
-  font-size: 0.9rem;
-  color: #888;
-  background-color: transparent;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
-  margin-top: auto;
-  opacity: 0.6;
-  font-weight: 1000;
   user-select: none;
+  border-top: 1px solid var(--color-border);
+  background: transparent;
+}
+
+.footer nav {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.footer a {
+  color: var(--color-muted);
+  transition: color 0.2s ease;
+}
+
+.footer a:hover {
+  color: var(--color-text);
+}
+
+@media (max-width: 640px) {
+  .footer {
+    align-items: flex-start;
+    flex-direction: column;
+    width: calc(100% - (var(--page-pad) * 2));
+    gap: 10px;
+    padding-top: 18px;
+    text-align: left;
+  }
 }

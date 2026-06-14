@@ -1,14 +1,19 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="en">
   <head>
-    <meta charset="utf-8">
+    <meta charset="utf-8" />
     <script type="text/javascript">
-      // Preserve path and redirect back to index.html
-      sessionStorage.redirect = location.pathname;
-      window.location.replace("/personal-profile/");
+      const basePath = "/personal-profile";
+      const path = location.pathname.startsWith(basePath)
+        ? location.pathname.slice(basePath.length)
+        : location.pathname;
+      const route = `${path || "/"}${location.search}${location.hash}`;
+
+      sessionStorage.setItem("redirect", route);
+      window.location.replace(`${basePath}/`);
     </script>
   </head>
   <body>
-    <p>Redirecting…</p>
+    <p>Redirecting...</p>
   </body>
 </html>

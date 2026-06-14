@@ -1,33 +1,35 @@
-import React from 'react';
-import { ComposableMap, Geographies, Geography } from 'react-simple-maps';
-import { geoCentroid, geoAlbersUsa } from 'd3-geo';
-import { Annotation } from 'react-simple-maps';
+import React, { useMemo } from 'react';
+import { geoCentroid } from 'd3-geo';
 import { STATE_ABBR } from '../data/stateList';
+import { createUsMapPath, isStateSelected, US_MAP_HEIGHT, US_MAP_WIDTH } from '../utils/usMap';
 import '../css/PrintView.css';
-
-const geoUrl = "https://cdn.jsdelivr.net/npm/us-atlas@3/states-10m.json";
 
 function StatesPrintView({ visitedStateNames = [], selectedIds = [], geoList = null }) {
   const visitedCount = visitedStateNames.length;
-  const date = new Date().toLocaleDateString('en-US', { 
-    year: 'numeric', 
-    month: 'long', 
-    day: 'numeric' 
-  });
+  const { projection, path } = useMemo(
+    () => createUsMapPath(geoList || []),
+    [geoList],
+  );
+  const date = useMemo(() => new Date().toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  }), []);
 
-  // 已访问的州列表（按字母顺序）
-  const visitedStates = visitedStateNames
-    .map((name) => {
-      const abbr = STATE_ABBR[name];
-      return abbr ? { fullName: name, abbr } : null;
-    })
-    .filter(Boolean)
-    .sort((a, b) => a.fullName.localeCompare(b.fullName));
+  const visitedStates = useMemo(() => (
+    visitedStateNames
+      .map((name) => {
+        const abbr = STATE_ABBR[name];
+        return abbr ? { fullName: name, abbr } : null;
+      })
+      .filter(Boolean)
+      .sort((a, b) => a.fullName.localeCompare(b.fullName))
+  ), [visitedStateNames]);
 
   return (
     <div className="print-view states-print">
       <div className="print-header">
-        <h1 className="print-title">US States I've Visited</h1>
+        <h1 className="print-title">U.S. States I've Visited</h1>
         <p className="print-subtitle">
           {visitedCount} out of 50 States
         </p>
@@ -42,63 +44,58 @@ function StatesPrintView({ visitedStateNames = [], selectedIds = [], geoList = n
             <p className="print-states-count">
               I have visited <strong>{visitedCount}</strong> {visitedCount === 1 ? 'state' : 'states'} across the United States.
             </p>
-            
-            {/* 打印地图 */}
             {geoList && geoList.length > 0 && (
               <div className="print-map-wrapper">
-                <ComposableMap projection="geoAlbersUsa" className="print-map">
-                  <Geographies geography={geoUrl}>
-                    {({ geographies }) => {
-                      const projection = geoAlbersUsa();
-                      return geographies.map((geo) => {
-                        const isSelected = selectedIds.includes(geo.id);
-                        const centroid = geoCentroid(geo.geometry);
-                        const isValidCentroid =
-                          Array.isArray(centroid) &&
-                          centroid.length === 2 &&
-                          !centroid.includes(undefined);
-                        const screenCoord = isValidCentroid
-                          ? projection(centroid)
-                          : null;
+                <svg
+                  className="print-map"
+                  viewBox={`0 0 ${US_MAP_WIDTH} ${US_MAP_HEIGHT}`}
+                  role="img"
+                  aria-label="Map of visited U.S. states"
+                >
+                  {geoList.map((geo) => {
+                    const statePath = path(geo);
+                    const isSelected = isStateSelected(selectedIds, geo.id);
+                    const centroid = geoCentroid(geo);
+                    const screenCoord = Array.isArray(centroid) ? projection(centroid) : null;
+                    const hasLabelCoord =
+                      Array.isArray(screenCoord) &&
+                      screenCoord.every((value) => Number.isFinite(value));
 
-                        return (
-                          <React.Fragment key={geo.rsmKey}>
-                            <Geography
-                              geography={geo}
-                              fill={isSelected ? "#ff6347" : "#ffeeda"}
-                              stroke="#fff"
-                              strokeWidth={0.5}
-                              style={{
-                                default: { outline: "none" },
-                                hover: { outline: "none" },
-                                pressed: { outline: "none" },
-                              }}
-                            />
-                            {screenCoord && (
-                              <Annotation
-                                subject={centroid}
-                                dx={0}
-                                dy={0}
-                                connectorProps={{ stroke: "none" }}
-                              >
-                                <text
-                                  className="print-statename"
-                                  x={0}
-                                  y={0}
-                                  textAnchor="middle"
-                                  fontSize={8}
-                                  fill="#111"
-                                >
-                                  {STATE_ABBR[geo.properties.name] || geo.properties.name}
-                                </text>
-                              </Annotation>
-                            )}
-                          </React.Fragment>
-                        );
-                      });
-                    }}
-                  </Geographies>
-                </ComposableMap>
+                    if (!statePath) {
+                      return null;
+                    }
+
+                    return (
+                      <React.Fragment key={geo.id}>
+                        <path
+                          d={statePath}
+                          className={`print-state ${isSelected ? "print-state--visited" : ""}`}
+                          fill={isSelected ? '#4f7d69' : '#e8e8e8'}
+                          stroke="#ffffff"
+                          strokeWidth="0.5"
+                        />
+                        {hasLabelCoord && (
+                          <text
+                            className="print-statename"
+                            fill="#222222"
+                            fontFamily="Inter, system-ui, sans-serif"
+                            fontSize="8"
+                            fontWeight="800"
+                            stroke="rgba(255, 255, 255, 0.86)"
+                            strokeLinejoin="round"
+                            strokeWidth="2.2"
+                            x={screenCoord[0]}
+                            y={screenCoord[1]}
+                            textAnchor="middle"
+                            aria-hidden="true"
+                          >
+                            {STATE_ABBR[geo.properties.name] || geo.properties.name}
+                          </text>
+                        )}
+                      </React.Fragment>
+                    );
+                  })}
+                </svg>
               </div>
             )}
 
@@ -114,7 +111,7 @@ function StatesPrintView({ visitedStateNames = [], selectedIds = [], geoList = n
       </div>
 
       <div className="print-footer">
-        <p className="print-signature">Tony Yang</p>
+        <p className="print-signature">Travel Tracker</p>
       </div>
     </div>
   );

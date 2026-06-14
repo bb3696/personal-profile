@@ -1,22 +1,28 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import '../css/BioSection.css';
-
 
 function BioSection() {
   return (
-    <div className="bio-section">
-      <p className="bio">
-        I’m a Full-Stack engineer building highly available, cloud-native systems with Java, Spring Boot, and React. I design and deliver scalable platforms on AWS across microservices, CI/CD, observability, and performance engineering, turning complex requirements into clean, reliable solutions.
-      </p>
-      <p className="bio">
-        I focus on real-world complexity: event-driven pipelines, async workflows, integrations, and production bottlenecks. From reducing latency with caching to improving resilience through Kafka tuning and automated testing, my goal is simple—make systems faster, more stable, and easier to evolve.      </p>
-      <p className="bio">
-        Beyond backend engineering, I explore data platforms and generative AI in production. I believe the future lies at the intersection of cloud, data, and AI—and my focus is turning emerging technology into reliable, scalable system capabilities.      </p>
-      <p className="bio">
-        Outside of tech, I’m passionate about hiking. Check out the <Link to="/parks" className="static-link">National-Parks</Link> and <Link to="/usmap" className="static-link">States</Link> I've explored.
-      </p>
-    </div>
+    <section className="bio-section" id="about" aria-labelledby="about-title">
+      <div className="section-heading">
+        <p className="section-kicker">About</p>
+        <h2 id="about-title">Full stack engineering with a personal travel log.</h2>
+      </div>
+
+      <div className="bio-layout">
+        <p className="bio-lead">
+          I'm a Full Stack Engineer focused on Java, Spring Boot, React, and building clean, maintainable web applications.
+        </p>
+        <div className="bio-notes" aria-label="Engineering principles">
+          <p>
+            I like working across the backend and frontend, turning ideas into practical tools with clear structure and thoughtful interfaces.
+          </p>
+          <p>
+            Outside of work, I enjoy traveling and visiting national parks. This site is a small place to share what I build and keep track of where I've been.
+          </p>
+        </div>
+      </div>
+    </section>
   );
 }
 

@@ -1,61 +1,208 @@
-/* 打印视图样式 */
+.print-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  overflow-y: auto;
+  padding: 24px;
+  background: rgba(0, 0, 0, 0.72);
+}
+
+.print-export-capture {
+  position: fixed;
+  top: 0;
+  left: -12000px;
+  z-index: -1;
+  width: 1120px;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.print-export-content {
+  width: 1120px;
+  background: #ffffff;
+}
+
+.print-modal-content {
+  position: relative;
+  width: min(1120px, 100%);
+  min-height: 100vh;
+  margin: 0 auto;
+  background: #ffffff;
+  border-radius: var(--radius-lg);
+}
+
+.print-modal-content--portrait {
+  width: min(820px, 100%);
+}
+
+.print-toolbar {
+  position: sticky;
+  top: 0;
+  z-index: 1001;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 64px 12px 12px;
+  border-bottom: 1px solid var(--color-border);
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(14px);
+}
+
+.print-toolbar-actions {
+  display: inline-flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.print-orientation-control {
+  display: inline-flex;
+  gap: 3px;
+  padding: 3px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-bg-soft);
+}
+
+.print-orientation-option,
+.print-action-btn {
+  display: inline-flex;
+  min-height: 34px;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  padding: 7px 12px;
+  color: var(--color-muted);
+  font-size: 0.86rem;
+  font-weight: 700;
+  border: 0;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  cursor: pointer;
+  transition: color 0.2s ease, background 0.2s ease, transform 0.2s ease;
+}
+
+.print-orientation-option:hover,
+.print-action-btn:hover {
+  color: var(--color-text);
+  background: rgba(79, 125, 105, 0.08);
+}
+
+.print-orientation-option--active {
+  color: var(--color-text);
+  background: #ffffff;
+  box-shadow: 0 1px 6px rgba(56, 44, 30, 0.08);
+}
+
+.print-action-btn {
+  color: #ffffff;
+  background: var(--color-accent);
+}
+
+.print-action-btn:hover {
+  color: #ffffff;
+  background: var(--color-accent-strong);
+  transform: translateY(-1px);
+}
+
+.print-action-btn--secondary {
+  color: var(--color-accent);
+  border: 1px solid rgba(79, 125, 105, 0.2);
+  background: var(--color-accent-soft);
+}
+
+.print-action-btn--secondary:hover {
+  color: var(--color-accent-strong);
+  background: #ffffff;
+}
+
+.print-action-btn:disabled {
+  cursor: wait;
+  opacity: 0.68;
+  transform: none;
+}
+
+.print-close-btn {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  z-index: 1001;
+  display: inline-flex;
+  width: 40px;
+  height: 40px;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  border-radius: var(--radius-md);
+  background: rgba(0, 0, 0, 0.52);
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.print-close-btn:hover {
+  background: rgba(0, 0, 0, 0.72);
+  transform: translateY(-1px);
+}
+
 .print-view {
-  max-width: 800px;
+  max-width: 1056px;
+  min-height: 100%;
   margin: 0 auto;
   padding: 40px;
-  background: linear-gradient(180deg, #e8eef3 0%, #dde5ed 50%, #e2eaf2 100%);
-  color: #1a2b3c;
-  font-family: 'Outfit', sans-serif;
-  min-height: 100%;
+  color: #111111;
+  font-family: Inter, system-ui, sans-serif;
+  background: #ffffff;
   -webkit-print-color-adjust: exact;
   print-color-adjust: exact;
-}
-
-.print-header {
-  text-align: center;
-  margin: -40px -40px 40px -40px;
-  padding: 40px;
-  background: linear-gradient(135deg, #1f3b4d 0%, #0d1a26 100%);
-  color: white;
-  -webkit-print-color-adjust: exact;
-  print-color-adjust: exact;
-}
-
-.print-title {
-  font-size: 36px;
-  font-weight: 600;
-  margin: 0 0 10px 0;
-  color: white;
-}
-
-.print-subtitle {
-  font-size: 20px;
-  color: rgba(255, 255, 255, 0.9);
-  margin: 10px 0;
-}
-
-.print-date {
-  font-size: 14px;
-  color: rgba(255, 255, 255, 0.7);
-  margin: 10px 0 0 0;
 }
 
 .print-content {
   margin: 30px 0;
 }
 
-.print-empty {
+.print-header {
+  margin: -40px -40px 40px;
+  padding: 42px 40px;
+  color: #ffffff;
   text-align: center;
-  color: #999;
-  font-style: italic;
-  padding: 40px;
+  background: #111111;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
 }
 
-/* Parks 打印样式 */
+.print-title {
+  margin: 0 0 10px;
+  color: #ffffff;
+  font-size: 34px;
+  font-weight: 760;
+  line-height: 1.1;
+}
+
+.print-subtitle {
+  margin: 10px 0;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 19px;
+}
+
+.print-date {
+  margin: 10px 0 0;
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 14px;
+}
+
+.print-empty {
+  padding: 40px;
+  color: #666666;
+  font-style: italic;
+  text-align: center;
+}
+
 .print-parks-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-  gap: 20px;
+  gap: 18px;
   margin: 30px 0;
 }
 
@@ -67,12 +214,12 @@
 .print-park-image {
   width: 100%;
   height: 120px;
-  object-fit: cover;
-  border-radius: 8px;
-  border: 2px solid #ddd;
   margin-bottom: 8px;
-  filter: grayscale(100%) brightness(0.5);
-  transition: filter 0.2s;
+  object-fit: cover;
+  border: 1px solid #eeeeee;
+  border-radius: 8px;
+  filter: grayscale(100%) brightness(0.82);
+  transition: filter 0.2s ease;
 }
 
 .print-park-item--visited .print-park-image {
@@ -80,136 +227,296 @@
 }
 
 .print-park-name {
-  font-size: 14px;
-  font-weight: 500;
   margin: 0;
-  color: #999;
-}
-
-.print-park-item--visited .print-park-name {
-  color: #333;
+  color: #777777;
+  font-size: 14px;
   font-weight: 600;
 }
 
-/* States 打印样式 */
+.print-park-item--visited .print-park-name {
+  color: #111111;
+  font-weight: 760;
+}
+
 .print-states-list {
   margin: 30px 0;
 }
 
 .print-states-count {
+  margin-bottom: 30px;
+  color: #111111;
   font-size: 18px;
   text-align: center;
-  margin-bottom: 30px;
-  color: #333;
 }
 
 .print-map-wrapper {
   width: 100%;
   max-width: 700px;
   margin: 30px auto;
-  border: 2px solid #ddd;
-  border-radius: 8px;
   overflow: hidden;
-  background: #fff;
   page-break-inside: avoid;
+  border: 1px solid #eeeeee;
+  border-radius: 8px;
+  background: #ffffff;
 }
 
 .print-map {
-  width: 100%;
-  height: auto;
-}
-
-.print-map svg {
-  width: 100%;
-  height: auto;
   display: block;
+  width: 100%;
+  height: auto;
+  background: #ffffff;
 }
 
 .print-statename {
-  font-family: 'Outfit', sans-serif;
   pointer-events: none;
-  fill: #111;
+  fill: #222222;
+  font-family: Inter, system-ui, sans-serif;
   font-size: 8px;
-  font-weight: bold;
+  font-weight: 800;
+  paint-order: stroke;
+  stroke: rgba(255, 255, 255, 0.86);
+  stroke-linejoin: round;
+  stroke-width: 2.2px;
   user-select: none;
+}
+
+.print-state {
+  fill: #e8e8e8;
+  stroke: #ffffff;
+  stroke-width: 0.5px;
+}
+
+.print-state--visited {
+  fill: #4f7d69;
 }
 
 .print-states-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 12px;
+  gap: 10px;
   margin: 20px 0;
 }
 
 .print-state-item {
   display: block;
   padding: 8px 12px;
-  background: #f5f5f5;
-  border-radius: 4px;
+  color: #111111;
   font-size: 14px;
-  color: #333;
   text-align: center;
-}
-
-.print-note {
-  font-size: 12px;
-  color: #999;
-  font-style: italic;
-  text-align: center;
-  margin-top: 20px;
+  border: 1px solid #eeeeee;
+  border-radius: 6px;
+  background: #ffffff;
 }
 
 .print-footer {
   margin-top: 50px;
   padding-top: 20px;
-  border-top: 1px solid #ddd;
   text-align: center;
+  border-top: 1px solid #eeeeee;
 }
 
 .print-signature {
-  font-size: 16px;
-  color: #666;
   margin: 0;
+  color: #666666;
+  font-size: 16px;
+  font-weight: 700;
 }
 
-/* 打印时的样式 */
 @media print {
+  html,
   body {
+    width: auto;
+    min-width: 0;
     background: white !important;
     color: #000 !important;
   }
 
+  .print-modal {
+    position: static;
+    padding: 0;
+    overflow: visible;
+    background: transparent !important;
+  }
+
+  .print-modal-content {
+    width: auto;
+    min-height: 0;
+    margin: 0;
+    box-shadow: none;
+    background: transparent !important;
+    border-radius: 0;
+  }
+
   .print-view {
-    padding: 20px;
-    max-width: 100%;
+    width: 100%;
+    max-width: none;
+    min-height: 0;
+    padding: 0;
+    box-shadow: none;
+  }
+
+  .print-content {
+    margin: 0;
   }
 
   .print-header {
+    margin: 0 0 0.12in;
+    padding: 0.1in 0.22in 0.12in;
     page-break-after: avoid;
+    break-after: avoid;
+  }
+
+  .print-title {
+    margin-bottom: 0.04in;
+    font-size: 20pt;
+    line-height: 1.05;
+  }
+
+  .print-subtitle {
+    margin: 0.04in 0;
+    font-size: 11pt;
+  }
+
+  .print-date {
+    margin-top: 0.04in;
+    font-size: 8pt;
   }
 
   .print-parks-grid {
+    grid-template-columns: repeat(8, minmax(0, 1fr));
+    gap: 0.09in;
+    margin: 0;
     page-break-inside: auto;
   }
 
-  .print-park-item {
+  .print-park-image {
+    height: 0.68in;
+    margin-bottom: 0.04in;
+    border-radius: 3px;
+  }
+
+  .print-park-name {
+    font-size: 6.8pt;
+    line-height: 1.15;
+  }
+
+  .print-park-item,
+  .print-footer {
     page-break-inside: avoid;
+    break-inside: avoid;
+  }
+
+  .print-states-list {
+    margin: 0;
+  }
+
+  .print-states-count {
+    margin-bottom: 0.12in;
+    font-size: 11pt;
+  }
+
+  .print-map-wrapper {
+    max-width: 5.9in;
+    margin: 0 auto 0.14in;
+    border-radius: 4px;
+    break-inside: avoid;
+  }
+
+  .print-statename {
+    font-size: 7px;
+    stroke-width: 1.8px;
+  }
+
+  .print-states-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0.06in;
+    margin: 0;
+  }
+
+  .print-state-item {
+    padding: 0.04in 0.06in;
+    font-size: 7.8pt;
+    line-height: 1.2;
+    border-radius: 3px;
+  }
+
+  .print-orientation-portrait .print-parks-grid {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: 0.075in;
+  }
+
+  .print-orientation-portrait .print-park-image {
+    height: 0.62in;
+  }
+
+  .print-orientation-portrait .print-park-name {
+    font-size: 6.4pt;
+  }
+
+  .print-orientation-portrait .print-map-wrapper {
+    max-width: 6.8in;
+  }
+
+  .print-orientation-portrait .print-states-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
   .print-footer {
-    page-break-before: avoid;
+    margin-top: 0.16in;
+    padding-top: 0.08in;
   }
 
-  /* 隐藏非打印元素 */
+  .print-signature {
+    font-size: 9pt;
+  }
+
   .no-print {
     display: none !important;
   }
 }
 
-/* 屏幕预览时的样式 */
 @media screen {
   .print-view {
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
+    border-radius: var(--radius-lg);
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.12);
+  }
+}
+
+@media (max-width: 560px) {
+  .print-modal {
+    padding: 12px;
+  }
+
+  .print-toolbar {
+    align-items: stretch;
+    flex-direction: column;
+    padding-right: 58px;
+  }
+
+  .print-orientation-control,
+  .print-toolbar-actions,
+  .print-action-btn {
+    width: 100%;
+  }
+
+  .print-toolbar-actions {
+    flex-direction: column;
+  }
+
+  .print-orientation-option {
+    flex: 1;
+  }
+
+  .print-view {
+    padding: 28px 18px;
+  }
+
+  .print-header {
+    margin: -28px -18px 28px;
+    padding: 36px 18px;
+  }
+
+  .print-title {
+    font-size: 26px;
   }
 }

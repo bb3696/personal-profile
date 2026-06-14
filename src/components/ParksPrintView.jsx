@@ -1,24 +1,22 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { PARK_NAMES } from '../data/parkList';
+import { getParkThumbnailPath } from '../utils/parkImages';
+import { isParkVisited } from '../hooks/useVisitedParks';
 import '../css/PrintView.css';
 
-function normalizeParkName(name) {
-  return name
-    .replace(/’/g, '')
-    .replace(/[^\w\s]/g, '')
-    .replace(/\s+/g, '_') + '_National_Park.jpg';
-}
-
 function ParksPrintView() {
-  const visitedCount = PARK_NAMES.filter((name) => 
-    localStorage.getItem(`visited_${name}`) === 'true'
-  ).length;
+  const parkPrintItems = useMemo(() => PARK_NAMES.map((name) => ({
+    image: getParkThumbnailPath(name),
+    name,
+    visited: isParkVisited(name),
+  })), []);
+  const visitedCount = parkPrintItems.filter((park) => park.visited).length;
   const totalParks = PARK_NAMES.length;
-  const date = new Date().toLocaleDateString('en-US', { 
-    year: 'numeric', 
-    month: 'long', 
-    day: 'numeric' 
-  });
+  const date = useMemo(() => new Date().toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  }), []);
 
   return (
     <div className="print-view parks-print">
@@ -32,29 +30,24 @@ function ParksPrintView() {
 
       <div className="print-content">
         <div className="print-parks-grid">
-          {PARK_NAMES.map((name) => {
-            const visited = localStorage.getItem(`visited_${name}`) === 'true';
-            const filename = normalizeParkName(name);
-            const imagePath = `${import.meta.env.BASE_URL}thumbnails/${filename}`;
-            return (
-              <div 
-                key={name} 
-                className={`print-park-item ${visited ? 'print-park-item--visited' : ''}`}
-              >
-                <img 
-                  src={imagePath} 
-                  alt={name} 
-                  className="print-park-image"
-                />
-                <p className="print-park-name">{name}</p>
-              </div>
-            );
-          })}
+          {parkPrintItems.map(({ image, name, visited }) => (
+            <div
+              key={name}
+              className={`print-park-item ${visited ? 'print-park-item--visited' : ''}`}
+            >
+              <img
+                src={image}
+                alt={name}
+                className="print-park-image"
+              />
+              <p className="print-park-name">{name}</p>
+            </div>
+          ))}
         </div>
       </div>
 
       <div className="print-footer">
-        <p className="print-signature">Tony Yang</p>
+        <p className="print-signature">Travel Tracker</p>
       </div>
     </div>
   );

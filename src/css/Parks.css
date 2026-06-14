@@ -1,93 +1,29 @@
 .parks-page {
   width: 100%;
-  padding: 40px 20px;
-  box-sizing: border-box;
+  padding: var(--section-pad-top) var(--page-pad) var(--section-pad-bottom);
   user-select: none;
 }
 
-/* Parks 页面：Nav 在右侧 */
-.parks-page .top-nav {
-  left: auto;
-  right: 20px;
-}
-
-.grid {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 24px;
-  padding: 20px 0;
-  opacity: 0;
-  transform: translateY(20px);
-  animation: fadeInUp 0.8s ease-out forwards;
-  animation-delay: 0.1s;
-}
-
-@keyframes fadeInUp {
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.print-modal {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.8);
-  z-index: 1000;
-  overflow-y: auto;
-  padding: 20px;
-}
-
-.print-modal-content {
-  position: relative;
-  background: white;
+.parks-page-chrome {
+  width: min(1120px, 100%);
   margin: 0 auto;
-  max-width: 900px;
-  min-height: 100vh;
 }
 
-.print-close-btn {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  width: 40px;
-  height: 40px;
-  border: none;
-  background: rgba(0, 0, 0, 0.5);
-  color: white;
-  font-size: 24px;
-  border-radius: 50%;
-  cursor: pointer;
-  z-index: 1001;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.parks-grid {
+  display: grid;
+  width: min(1120px, 100%);
+  margin: 0 auto;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 18px;
 }
 
-.print-close-btn:hover {
-  background: rgba(0, 0, 0, 0.7);
-}
-
-@media print {
-  .parks-page .parks-page-chrome.no-print {
-    display: none !important;
+@media (max-width: 680px) {
+  .parks-page {
+    padding: var(--section-pad-top) var(--page-pad) var(--section-pad-bottom);
   }
 
-  .print-modal {
-    position: static;
-    background: transparent !important;
-    padding: 0;
-    overflow: visible;
-  }
-
-  .print-modal-content {
-    box-shadow: none;
-    background: transparent !important;
+  .parks-grid {
+    grid-template-columns: repeat(auto-fill, minmax(158px, 1fr));
+    gap: 12px;
   }
 }
-
-

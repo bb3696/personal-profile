@@ -1,33 +1,42 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import '../css/ParkCard.css';
 
-function ParkCard({ park, image, onToggleVisited }) {
-  const googleSearchUrl = `https://www.google.com/search?q=${encodeURIComponent(park + ' National Park')}`;
+function ParkCard({
+  image,
+  onToggleVisited,
+  park,
+  visited,
+}) {
+  const googleSearchUrl = useMemo(
+    () => `https://www.google.com/search?q=${encodeURIComponent(`${park} National Park`)}`,
+    [park],
+  );
 
-  const [visited, setVisited] = useState(() => localStorage.getItem(`visited_${park}`) === 'true');
-
-  useEffect(() => {
-    setVisited(localStorage.getItem(`visited_${park}`) === 'true');
-  }, [park]);
-
-  const toggleVisited = () => {
-    const newVisited = !visited;
-    setVisited(newVisited);
-    localStorage.setItem(`visited_${park}`, newVisited.toString());
-    onToggleVisited?.();
-  };
+  const toggleVisited = useCallback(() => {
+    onToggleVisited(park);
+  }, [onToggleVisited, park]);
 
   return (
-    <div
-      className={`park-card ${visited ? 'visited' : ''}`}
-      title={visited ? 'Visited' : 'Click image to mark as visited'}
-    >
-      <img
-        src={image}
-        alt={park}
+    <article className={`park-card ${visited ? 'visited' : ''}`}>
+      <button
+        type="button"
         onClick={toggleVisited}
-        className="park-image"
-      />
+        className="park-image-button"
+        aria-pressed={visited}
+        aria-label={`${visited ? 'Unmark' : 'Mark'} ${park} as visited`}
+        title={visited ? 'Visited' : 'Mark as visited'}
+      >
+        <img
+          src={image}
+          alt=""
+          loading="lazy"
+          decoding="async"
+          className="park-image"
+        />
+        <span className="park-status-badge">
+          {visited ? 'Visited' : 'To visit'}
+        </span>
+      </button>
       <a
         className="park-name"
         href={googleSearchUrl}
@@ -36,8 +45,8 @@ function ParkCard({ park, image, onToggleVisited }) {
       >
         {park}
       </a>
-    </div>
+    </article>
   );
 }
 
-export default ParkCard;
+export default React.memo(ParkCard);

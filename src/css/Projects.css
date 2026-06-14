@@ -1,0 +1,144 @@
+.projects-page {
+  width: min(var(--layout-max), calc(100% - (var(--page-pad) * 2)));
+  margin: 0 auto;
+  padding: var(--section-pad-top) 0 var(--section-pad-bottom);
+}
+
+.projects-shell {
+  display: grid;
+  gap: 38px;
+}
+
+.projects-heading {
+  max-width: 700px;
+}
+
+.projects-heading h1 {
+  margin-bottom: 16px;
+  color: var(--color-text);
+  font-size: clamp(2.35rem, 5vw, 3.9rem);
+  font-weight: 760;
+  line-height: 1.08;
+  letter-spacing: 0;
+}
+
+.projects-heading p,
+.travel-log-heading p,
+.tracker-card p {
+  margin-bottom: 0;
+  color: var(--color-muted);
+  font-size: 1.04rem;
+  line-height: 1.72;
+}
+
+.travel-log-heading h2 {
+  margin-bottom: 0;
+  color: var(--color-text);
+  font-size: clamp(1.6rem, 3vw, 2.18rem);
+  font-weight: 740;
+  line-height: 1.14;
+  letter-spacing: 0;
+}
+
+.travel-log {
+  display: grid;
+  gap: 22px;
+  scroll-margin-top: 96px;
+}
+
+.travel-log-heading {
+  max-width: 660px;
+}
+
+.travel-log-heading h2 {
+  margin-bottom: 12px;
+}
+
+.tracker-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.tracker-card {
+  min-height: 318px;
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background:
+    linear-gradient(180deg, rgba(237, 244, 239, 0.5), rgba(255, 255, 255, 0) 54%),
+    rgba(255, 255, 255, 0.84);
+  box-shadow: 0 1px 0 rgba(56, 44, 30, 0.03);
+  transition: border-color 0.22s ease, box-shadow 0.22s ease, background 0.22s ease;
+}
+
+.tracker-card:hover {
+  border-color: rgba(79, 125, 105, 0.3);
+  background: #ffffff;
+  box-shadow: var(--shadow-hover);
+}
+
+.tracker-card a {
+  display: flex;
+  min-height: 100%;
+  flex-direction: column;
+  padding: clamp(24px, 3.4vw, 34px);
+}
+
+.tracker-card svg {
+  margin-bottom: 34px;
+  color: var(--color-accent);
+}
+
+.tracker-card span {
+  display: block;
+  margin-bottom: 12px;
+  color: var(--color-subtle);
+  font-size: 0.78rem;
+  font-weight: 720;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
+.tracker-card h2 {
+  margin-bottom: 12px;
+  color: var(--color-text);
+  font-size: clamp(1.55rem, 2.8vw, 2.08rem);
+  font-weight: 740;
+  line-height: 1.14;
+  letter-spacing: 0;
+}
+
+.tracker-card strong {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: auto;
+  padding-top: 28px;
+  color: var(--color-accent);
+  font-size: 0.95rem;
+  font-weight: 720;
+}
+
+@media (max-width: 760px) {
+  .projects-page {
+    width: min(100% - (var(--page-pad) * 2), var(--layout-max));
+  }
+
+  .projects-shell {
+    gap: 28px;
+  }
+
+  .tracker-grid {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+
+  .tracker-card {
+    min-height: auto;
+  }
+
+  .tracker-card svg {
+    margin-bottom: 26px;
+  }
+}

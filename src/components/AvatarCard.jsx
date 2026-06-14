@@ -1,31 +1,36 @@
-// src/components/AvatarCard.jsx
 import React from 'react';
+import { Award } from 'lucide-react';
 import '../css/AvatarCard.css';
 import avatar from '../assets/avatar.jpg';
 
+const awsCredentialUrl = 'https://www.credly.com/badges/60949ad8-07f2-489f-8442-cf50a8a067e9/linked_in_profile';
+
 function AvatarCard() {
   return (
-    <div className="photo-section">
+    <section className="photo-section" aria-label="Tony Yang profile">
       <img
         className="avatar-img"
         src={avatar}
         alt="Tony Yang"
+        width="240"
+        height="240"
+        decoding="async"
+        fetchpriority="high"
       />
-      <div className="photo-name">Tony Yang</div>
-      <div className="photo-links">
-        <a href="mailto:tony.yang972@gmail.com" target="_blank" rel="noopener noreferrer">
-          <i className="fas fa-envelope"></i>
-        </a>
+      <div className="photo-copy">
+        <div className="photo-name">Tony Yang</div>
+        <p>Full Stack Engineer focused on Java, Spring Boot, React, Cloud and AI</p>
         <a
-          href="https://www.credly.com/badges/60949ad8-07f2-489f-8442-cf50a8a067e9/linked_in_profile"
+          className="photo-credential"
+          href={awsCredentialUrl}
           target="_blank"
           rel="noopener noreferrer"
-          title="AWS Certified Developer – Associate"
         >
-          <i className="fas fa-certificate"></i>
+          <Award aria-hidden="true" size={16} strokeWidth={1.9} />
+          AWS Certified Developer
         </a>
       </div>
-    </div>
+    </section>
   );
 }
 
