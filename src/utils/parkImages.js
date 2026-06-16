@@ -1,3 +1,5 @@
+const PARK_THUMBNAIL_VERSION = '2d-20260615';
+
 export function getParkThumbnailFilename(name) {
   return `${name
     .replace(/’/g, '')
@@ -6,5 +8,5 @@ export function getParkThumbnailFilename(name) {
 }
 
 export function getParkThumbnailPath(name) {
-  return `${import.meta.env.BASE_URL}thumbnails/${getParkThumbnailFilename(name)}`;
+  return `${import.meta.env.BASE_URL}thumbnails/${getParkThumbnailFilename(name)}?v=${PARK_THUMBNAIL_VERSION}`;
 }
